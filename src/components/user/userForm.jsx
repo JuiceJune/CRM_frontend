@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {useParams, useNavigate, Link} from "react-router-dom";
+import React, {useState} from 'react';
+import {useNavigate} from "react-router-dom";
 import axiosClient from "../../axios-client.js";
-import {InputText} from "primereact/InputText";
+import {InputText} from "primereact/inputText";
 import { Button } from 'primereact/button';
+import { Password } from 'primereact/password';
+
 
 const UserForm = (props) => {
     const {user, toast} = props
@@ -50,18 +52,18 @@ const UserForm = (props) => {
             </div>
             <div className="flex flex-column gap-2 mb-4">
                 <label htmlFor="username">Current Password</label>
-                <InputText id="username" onChange={event => setPasswords({...passwords, current_password: event.target.value})} />
+                <Password toggleMask  id="username" onChange={event => setPasswords({...passwords, current_password: event.target.value})} />
                 <small>
                     Enter your current password to reset your password.
                 </small>
             </div>
             <div className="flex flex-column gap-2 mb-3">
                 <label htmlFor="password">New Password</label>
-                <InputText id="password" onChange={event => setPasswords({...passwords, new_password: event.target.value})}/>
+                <Password toggleMask  id="password" onChange={event => setPasswords({...passwords, new_password: event.target.value})}/>
             </div>
             <div className="flex flex-column gap-2 mb-3">
                 <label htmlFor="password">Confirm New  Password</label>
-                <InputText id="password" onChange={event => setPasswords({...passwords, new_password_confirmation: event.target.value})}/>
+                <Password toggleMask  id="password" onChange={event => setPasswords({...passwords, new_password_confirmation: event.target.value})}/>
             </div>
             <div className="flex gap-2 mb-3 mt-4">
                 <Button icon="pi pi-check" loading={loading} label="Update" onClick={send} />

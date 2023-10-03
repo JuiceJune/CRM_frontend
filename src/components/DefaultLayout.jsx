@@ -43,7 +43,7 @@ const DefaultLayout = () => {
             <div className="content">
                 <header>
                     <div>
-                        Header
+                        <img src="/vite.svg" alt="" height="30px" width="30px"/>
                     </div>
                     <div>
                         <Link to="/profile" className="btn-logout">{user.name}</Link>

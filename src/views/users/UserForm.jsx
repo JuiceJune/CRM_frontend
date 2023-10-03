@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams, useNavigate, Link} from "react-router-dom";
 import axiosClient from "../../axios-client.js";
 import {useStateContext} from "../../contexts/ContextProvider.jsx";
-import {ArrowLeft, ArrowLeftCircle, PencilSquare} from "react-bootstrap-icons";
+import {ArrowLeftCircle} from "react-bootstrap-icons";
 
 const UserForm = () => {
     const {id} = useParams()

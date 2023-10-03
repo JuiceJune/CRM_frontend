@@ -14,12 +14,17 @@ import Linkedin from "./views/linkedinAccounts/Linkedin.jsx";
 import Project from "./views/projects/Project.jsx";
 import User from "./views/users/User.jsx";
 import Profile from "./views/users/Profile.jsx";
+import Google from "./views/google/Google.jsx";
 
 const router = createBrowserRouter([
     {
       path: '/',
       element: <DefaultLayout/>,
       children: [
+          {
+              path: '/',
+              element: <Dashboard />
+          },
           {
               path: '/dashboard',
               element: <Dashboard />
@@ -71,6 +76,10 @@ const router = createBrowserRouter([
           {
               path: '/profile',
               element: <Profile />,
+          },
+          {
+              path: '/callback',
+              element: <Google />,
           },
       ]
     },

@@ -6,7 +6,7 @@ const LinkedinHeaderCards = () => {
     return (
         <div className="grid">
             {/*1*/}
-            <div className="col-12 md:col-6 lg:col-3">
+            <div className="col-12 md:col-6 lg:col-4">
                 <div className="surface-0 shadow-1 p-3 border-1 border-50 border-round h-full">
                     <div className="flex justify-content-between mb-3">
                         <div>
@@ -22,7 +22,7 @@ const LinkedinHeaderCards = () => {
                 </div>
             </div>
             {/*2*/}
-            <div className="col-12 md:col-6 lg:col-3">
+            <div className="col-12 md:col-6 lg:col-4">
                 <div className="surface-0 shadow-1 p-3 border-1 border-50 border-round h-full">
                     <div className="flex justify-content-between mb-3">
                         <div>
@@ -38,7 +38,7 @@ const LinkedinHeaderCards = () => {
                 </div>
             </div>
             {/*3*/}
-            <div className="col-12 md:col-6 lg:col-3">
+            <div className="col-12 md:col-12 lg:col-4">
                 <div className="surface-0 shadow-1 p-3 border-1 border-50 border-round h-full">
                     <div className="flex justify-content-between mb-3">
                         <div>
@@ -51,22 +51,6 @@ const LinkedinHeaderCards = () => {
                     </div>
                     <span className="text-green-500 font-medium">520  </span>
                     <span className="text-500">newly registered</span>
-                </div>
-            </div>
-            {/*4*/}
-            <div className="col-12 md:col-6 lg:col-3">
-                <div className="surface-0 shadow-1 p-3 border-1 border-50 border-round h-full">
-                    <div className="flex justify-content-between mb-3">
-                        <div>
-                            <span className="block text-500 font-medium mb-3">Bounced Today</span>
-                            <div className="text-900 font-medium text-xl">2</div>
-                        </div>
-                        <div className="flex align-items-center justify-content-center bg-orange-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
-                            <i className="pi pi-times-circle text-orange-500 text-xl"></i>
-                        </div>
-                    </div>
-                    <span className="text-green-500 font-medium">85 </span>
-                    <span className="text-500">responded</span>
                 </div>
             </div>
         </div>
