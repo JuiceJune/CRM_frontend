@@ -3,64 +3,65 @@ import {useParams, useNavigate, Link} from "react-router-dom";
 import axiosClient from "../../axios-client.js";
 import {useStateContext} from "../../contexts/ContextProvider.jsx";
 import {ArrowLeftCircle} from "react-bootstrap-icons";
+import {InputText} from "primereact/inputtext";
+import {Password} from "primereact/password";
+import {Button} from "primereact/button";
 
 const UserForm = () => {
-    const {id} = useParams()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState(null);
     const {setNotification} = useStateContext()
     const [user, setUser] = useState({
-        id: null,
         name: '',
         email: '',
         password: '',
-        password_confirmation: ''
+        role: '',
+        position: '',
     })
 
-    if(id) {
-        useEffect(() => {
-            setLoading(true);
-            axiosClient.get(`/users/${id}`)
-                .then( ({data}) => {
-                    setLoading(false)
-                    setUser(data.data)
-                })
-                .catch(() => {
-                    setLoading(false)
-
-                })
-        }, [])
-    }
+    useEffect(() => {
+        setLoading(true);
+        axiosClient.get(`/users/create`)
+            .then((response) => {
+                console.log(response)
+                setLoading(false);
+            })
+            .catch(err => {
+                console.log(err)
+                setLoading(false);
+            })
+    }, [])
 
     const onSubmit = (event) => {
-        event.preventDefault()
-        if(user.id) {
-            axiosClient.put(`/users/${user.id}`, user)
-                .then((response) => {
-                    console.log(response)
-                    setNotification("User was successfully updated")
-                    navigate('/users')
-                })
-                .catch(err => {
-                    const response = err.response;
-                    if(response && response.status === 422) {
-                        setErrors(response.data.errors);
-                    }
-                })
-        } else {
-            axiosClient.post(`/users`, user)
-                .then(() => {
-                    setNotification("User was successfully created")
-                    navigate('/users')
-                })
-                .catch(err => {
-                    const response = err.response;
-                    if(response && response.status === 422) {
-                        setErrors(response.data.errors);
-                    }
-                })
-        }
+        // event.preventDefault()
+        console.log(user)
+        // if(user.id) {
+        //     axiosClient.put(`/users/${user.id}`, user)
+        //         .then((response) => {
+        //             console.log(response)
+        //             setNotification("User was successfully updated")
+        //             navigate('/users')
+        //         })
+        //         .catch(err => {
+        //             const response = err.response;
+        //             if(response && response.status === 422) {
+        //                 setErrors(response.data.errors);
+        //             }
+        //         })
+        // } else {
+        //     axiosClient.post(`/users`, user)
+        //         .then(() => {
+        //             setNotification("User was successfully created")
+        //             navigate('/users')
+        //         })
+        //         .catch(err => {
+        //             const response = err.response;
+        //             if(response && response.status === 422) {
+        //                 setErrors(response.data.errors);
+        //             }
+        //         })
+        // }
     }
 
     return (
@@ -80,13 +81,30 @@ const UserForm = () => {
                     ))}
                 </div>}
                 {!loading &&
-                    <form onSubmit={onSubmit}>
-                        <input type="text" value={user.name} onChange={event => setUser({...user, name: event.target.value})} placeholder="Name"/>
-                        <input type="email" value={user.email} onChange={event => setUser({...user, email: event.target.value})} placeholder="Email"/>
-                        <input type="password" onChange={event => setUser({...user, password: event.target.value})} placeholder="Password"/>
-                        <input type="password" onChange={event => setUser({...user, password_confirmation: event.target.value})} placeholder="Password confirmation"/>
-                        <button className="btn">Save</button>
-                    </form>
+                    <div>
+                        <div className="flex flex-column gap-2 mb-4">
+                            <label htmlFor="text">Name</label>
+                            <InputText id="name" onChange={event => setUser({...user, name: event.target.value})}/>
+                            <small>
+                                Enter your name.
+                            </small>
+                        </div>
+                        <div className="flex flex-column gap-2 mb-4">
+                            <label htmlFor="email">Email</label>
+                            <InputText id="email" onChange={event => setUser({...user, email: event.target.value})}/>
+                            <small>
+                                Enter your email to reset your password.
+                            </small>
+                        </div>
+                        <div className="flex flex-column gap-2 mb-3">
+                            <label htmlFor="password">Password</label>
+                            <Password toggleMask  id="password" onChange={event => setUser({...user, password: event.target.value})}/>
+                        </div>
+                        <div className="flex gap-2 mb-3 mt-4">
+                            <Button icon="pi pi-check" loading={loading} label="Save" onClick={onSubmit}/>
+                            <Button loading={loading} label="Cancel" severity="danger" onClick={() => navigate(-1)} />
+                        </div>
+                    </div>
                 }
             </div>
         </div>

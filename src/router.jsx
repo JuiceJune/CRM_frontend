@@ -2,7 +2,7 @@ import {createBrowserRouter} from "react-router-dom";
 import Login from "./views/auth/Login.jsx";
 import Users from "./views/users/Users.jsx";
 import NotFound from "./views/NotFound";
-import DefaultLayout from "./components/defaultLayout.jsx";
+import DefaultLayout from "./components/DefaultLayout.jsx";
 import GuestLayout from "./components/GuestLayout.jsx";
 import Dashboard from "./views/dashboard/Dashboard.jsx";
 import UserForm from "./views/users/UserForm.jsx";
@@ -14,7 +14,6 @@ import Linkedin from "./views/linkedinAccounts/Linkedin.jsx";
 import Project from "./views/projects/Project.jsx";
 import User from "./views/users/User.jsx";
 import Profile from "./views/users/Profile.jsx";
-import Google from "./views/google/Google.jsx";
 
 const router = createBrowserRouter([
     {
@@ -76,10 +75,6 @@ const router = createBrowserRouter([
           {
               path: '/profile',
               element: <Profile />,
-          },
-          {
-              path: '/callback',
-              element: <Google />,
           },
       ]
     },
