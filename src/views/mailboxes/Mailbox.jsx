@@ -9,35 +9,53 @@ import MailboxHeaderCards from "../../components/mailbox/mailboxHeaderCards";
 import MailboxChart from "../../components/mailbox/mailboxChart.jsx";
 import MailboxInfoCard from "../../components/mailbox/mailboxInfoCard.jsx";
 import {useNavigate} from "react-router-dom";
+import MailboxTable from "../../components/mailbox/mailboxTable.jsx";
 
 
 const Mailbox = () => {
     const {id} = useParams()
     const [mailbox, setMailbox] = useState([]);
     const [loading, setLoading] = useState(false)
-    const [showMailbox, setShowMailbox] = useState(false);
     const toast = useRef(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        setLoading(true)
         getMailbox();
-    }, [])
+        setLoading(false);
+    }, [id]);
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        if (urlParams.size > 0) {
+            const status = urlParams.get('status');
+            const message = urlParams.get('message');
+            const email = urlParams.get('email');
+
+            toast.current.show({ severity: status, summary: message, detail: email, life: 3000 });
+
+            const url = new URL(window.location.href);
+            url.search = ''; // Очищаємо всі параметри
+            window.history.replaceState(null, '', url.toString());
+        }
+    }, []);
+
 
     const getMailbox = () => {
+        setLoading(true);
         axiosClient.get(`/mailboxes/${id}`)
             .then(response => {
                 setMailbox(response.data.data)
-                setLoading(false)
-                setShowMailbox(true);
             })
             .catch((e) => {
-                setLoading(false)
                 if(e.response.status === 403 || e.response.status === 404) {
                     // toast.current.show({ severity: 'error', summary: 'Error', detail: 'Not Found', life: 3000 });
                     navigate('/not-found');
                 }
             })
+            .finally(() => {
+                setLoading(false); // Встановлюємо loading в false незалежно від результату запиту.
+            });
     }
 
     if (loading) {
@@ -47,7 +65,15 @@ const Mailbox = () => {
 
     return (
         <div>
-            {showMailbox && (
+            {loading ? (
+                <BounceLoader
+                    color={"#5B08A7"}
+                    loading={loading}
+                    size={100}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+            ) : (
                 <div>
                     <Toast ref={toast}/>
                     <div className="surface-0 shadow-1 p-3 border-1 border-50 border-round mb-3">
