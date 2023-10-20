@@ -32,11 +32,19 @@ const MailboxInfoCard = (props) => {
                         <span>Password:</span>
                     </div>
                     <div className="flex">
-                        <div className="text-500 text-sm">
-                            <Password value={mailbox.password} disabled toggleMask className="password-value"/>
-                        </div>
-                        <Button icon="pi pi-copy" text severity="secondary" style={{padding: 0}}
-                                onClick={() => onValueCopy(mailbox.password)}/>
+                        {mailbox.password ? (
+                            <div className="flex">
+                                <div className="text-500 text-sm">
+                                    <Password value={mailbox.password} disabled toggleMask className="password-value"/>
+                                </div>
+                                <Button icon="pi pi-copy" text severity="secondary" style={{padding: 0}}
+                                        onClick={() => onValueCopy(mailbox.password)}/>
+                            </div>
+                        ) : (
+                            <div className="text-500 text-sm">
+                                Not exists
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
