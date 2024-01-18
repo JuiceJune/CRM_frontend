@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Button} from "primereact/button";
-import {InputText} from "primereact/inputText";
+import {InputText} from "/primereact/inputText";
 
 const ProspectForm = (props) => {
     const {index, prospect, handleInputChange, handleRemoveProspect} = props;

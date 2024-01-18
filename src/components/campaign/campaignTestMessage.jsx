@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import 'primeicons/primeicons.css';
-import {InputText} from "primereact/inputText";
+import {InputText} from "/primereact/inputText";
 import {Button} from "primereact/button";
 import axiosClient from "../../services/axios-client.js";
 import {useParams} from "react-router-dom";

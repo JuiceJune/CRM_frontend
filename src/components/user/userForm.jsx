@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axiosClient from "../../services/axios-client.js";
-import {InputText} from "primereact/inputText";
+import {InputText} from "/primereact/inputText";
 import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
 
