@@ -20,5 +20,5 @@ jobs:
         REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
         REMOTE_USER: ${{ secrets.DEPLOY_USERNAME }}
         REMOTE_PORT: ${{ secrets.DEPLOY_PORT }}
-        SOURCE: "build/"
+        SOURCE: "dist/"
         TARGET: "/var/www/test/"
