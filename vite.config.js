@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['primereact/multiSelect', 'primereact/inputText'],
+      external: ['primereact/multiSelect', 'primereact/inputText', 'primereact/inputNumber'],
     },
   },
 })
