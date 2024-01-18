@@ -21,4 +21,4 @@ jobs:
         REMOTE_USER: ${{ secrets.DEPLOY_USERNAME }}
         REMOTE_PORT: ${{ secrets.DEPLOY_PORT }}
         SOURCE: "build/"
-        TARGET: "sdrcrew.com"
+        TARGET: "/var/www/test/"
