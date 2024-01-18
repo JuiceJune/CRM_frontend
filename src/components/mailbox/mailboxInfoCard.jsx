@@ -5,20 +5,17 @@ import {Password} from 'primereact/password';
 import {Button} from "primereact/button";
 
 const MailboxInfoCard = (props) => {
-    const {toast, mailbox} = props;
+    const {mailbox} = props;
     const onValueCopy = (value) => {
         navigator.clipboard.writeText(value)
-        toast.current.show({severity: 'success', summary: 'Value copied', detail: value, life: 3000});
+        // toast.current.show({severity: 'success', summary: 'Value copied', detail: value, life: 3000});
     };
 
-    const badgeTemplate = <img src={"/" + mailbox.email_provider_logo} alt="badge"
-                               style={{width: '24px', height: '24px'}}/>;
     return (
         <div className="surface-0 shadow-1 p-3 border-1 border-50 border-round h-full">
             <div className="flex border-bottom-1 border-300 pb-3 pt-1">
                 <div className="flex">
-                    <Badge value={badgeTemplate} className="p-0 bg-white"/>
-                    <img alt="Avatar" src={"../" + mailbox.avatar} width="52"/>
+                    <img alt="Avatar" src='http://localhost:3000/mailboxes//avatars/default.png' width="52" style={{ borderRadius: '50%' }}/>
                 </div>
                 <div className="pl-2 my-auto hidden-overflow z-5">
                     <div className="text-500">{mailbox.name}</div>
@@ -146,39 +143,6 @@ const MailboxInfoCard = (props) => {
                             </div>
                         )}
                     </div>
-                </div>
-            </div>
-            <div className="py-3 border-bottom-1 border-300 text-600 text-base">
-                <div className="px-2">
-                    {mailbox.linkedin_link ? (
-                        <div className="flex justify-content-between">
-                            <div className="flex align-items-center mr-2">
-                                <i className="pi pi-linkedin"
-                                   style={{color: 'grey', fontSize: '1rem', marginRight: "3px"}}></i>
-                                <span>Linkedin:</span>
-                                <div className="text-500 text-sm ml-2">
-                                    <a className="text-500"
-                                       href={mailbox.linkedin_link}
-                                       target="_blank">Link</a>
-                                </div>
-                            </div>
-                            <div>
-                                <Button icon="pi pi-copy" text severity="secondary" style={{padding: 0}}
-                                        onClick={() => onValueCopy(mailbox.linkedin_link)}/>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="flex align-items-center">
-                            <div className="flex align-items-center mr-2">
-                                <i className="pi pi-linkedin"
-                                   style={{color: 'grey', fontSize: '1rem', marginRight: "3px"}}></i>
-                                <span>Linkedin:</span>
-                            </div>
-                            <div className="text-500 text-sm">
-                                Not exists
-                            </div>
-                        </div>
-                    )}
                 </div>
             </div>
             <div className="py-3 border-bottom-1 border-300 text-600 text-base">

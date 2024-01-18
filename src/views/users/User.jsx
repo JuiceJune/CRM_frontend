@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-import axiosClient from "../../axios-client.js";
+import axiosClient from "../../services/axios-client.js";
 import {Link, useParams} from "react-router-dom";
 import {Button} from "primereact/button";
 import {BounceLoader} from "react-spinners";
@@ -29,14 +29,14 @@ const User = () => {
     const getUser = () => {
         axiosClient.get(`/users/${id}`)
             .then(response => {
-                setUser(response.data.data)
+                console.log(response)
+                setUser(response.data)
                 setLoading(false)
                 setShowUser(true);
             })
             .catch((e) => {
                 setLoading(false)
                 if (e.response.status === 403 || e.response.status === 404) {
-                    // toast.current.show({ severity: 'error', summary: 'Error', detail: 'Not Found', life: 3000 });
                     navigate('/not-found');
                 }
             })

@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import 'primeicons/primeicons.css';
-import axiosClient from "../../axios-client.js";
+import axiosClient from "../../services/axios-client.js";
 import {BounceLoader} from "react-spinners";
 import {Toast} from "primereact/toast";
 import {Column} from "primereact/column";
@@ -39,7 +39,7 @@ const MyMailboxesCard = (props) => {
     const nameLogoTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="Avatar" src={`${rowData.email_provider_logo}`} width="32" />
+                <img alt="Avatar" src={`${rowData.avatar}`} width="32" />
                 <span>{rowData.email}</span>
                 <Button icon="pi pi-copy" rounded text severity="secondary" onClick={() => onCellCopy(rowData.name)} />
             </div>
@@ -58,7 +58,7 @@ const MyMailboxesCard = (props) => {
             </div>
             <DataTable value={mailboxes}
                        loading={loading}
-                       scrollHeight="200px"
+                       scrollHeight="450px"
                        style={{ width: '100%' }}
                        dataKey="id"
                        emptyMessage="No customers found."

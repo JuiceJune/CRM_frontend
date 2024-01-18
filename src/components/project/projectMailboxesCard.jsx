@@ -23,7 +23,6 @@ const ProjectMailboxesCard = (props) => {
                                 <div className="flex justify-content-between align-items-center pt-1">
                                     <div className="flex">
                                         <div className="flex">
-                                            <Badge value={badgeTemplate} className="p-0 bg-white"/>
                                             <Avatar image={'../' + mailbox.avatar} size="large" shape="circle" />
                                         </div>
                                         <div className="pl-2 my-auto hidden-overflow z-5">

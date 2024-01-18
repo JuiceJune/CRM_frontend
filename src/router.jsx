@@ -14,6 +14,12 @@ import Linkedin from "./views/linkedinAccounts/Linkedin.jsx";
 import Project from "./views/projects/Project.jsx";
 import User from "./views/users/User.jsx";
 import Profile from "./views/users/Profile.jsx";
+import Campaigns from "./views/campaigns/Campaigns.jsx";
+import Campaign from "./views/campaigns/Campaign.jsx";
+import CampaignCreate from "./views/campaigns/CampaignCreate.jsx";
+import CampaignEdit from "./views/campaigns/CampaignEdit.jsx";
+import ProjectCampaignCreate from "./views/campaigns/ProjectCampaignCreate.jsx";
+import ProspectCreate from "./views/prospects/ProspectCreate.jsx";
 
 const router = createBrowserRouter([
     {
@@ -61,12 +67,36 @@ const router = createBrowserRouter([
               element: <Linkedin />,
           },
           {
+              path: '/campaigns',
+              element: <Campaigns />,
+          },
+          {
+              path: '/campaigns/:id',
+              element: <Campaign />,
+          },
+          {
+              path: '/campaigns/create',
+              element: <CampaignCreate />,
+          },
+          {
+              path: '/campaigns/:id/edit',
+              element: <CampaignEdit />,
+          },
+          {
+              path: '/campaigns/:id/prospects/create',
+              element: <ProspectCreate />,
+          },
+          {
               path: '/projects',
               element: <Projects />,
           },
           {
               path: '/projects/:id',
               element: <Project />,
+          },
+          {
+              path: '/projects/:id/campaigns/create',
+              element: <ProjectCampaignCreate />,
           },
           {
               path: '/users',

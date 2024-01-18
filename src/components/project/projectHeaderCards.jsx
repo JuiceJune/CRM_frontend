@@ -4,6 +4,7 @@ import ProjectClientCard from "./projectClientCard.jsx";
 import ProjectUserCard from "./projectUserCard.jsx";
 import ProjectMailboxesCard from "./projectMailboxesCard.jsx";
 import ProjectLinkedinAccountsCard from "./projectLinkedinAccountsCard.jsx";
+import ProjectCampaignsCard from "./projectCampaignsCard.jsx";
 
 
 const ProjectHeaderCards = (props) => {
@@ -52,10 +53,9 @@ const ProjectHeaderCards = (props) => {
                     <ProjectMailboxesCard mailboxes={project.mailboxes}/>
                 </div>
             </div>
-            {/*8*/}
             <div className="col-12 md:col-6">
                 <div className="surface-0 shadow-1 p-3 border-1 border-50 border-round h-full">
-                    <ProjectLinkedinAccountsCard linkedinAccounts={project.linkedin_accounts} position="Researchers"/>
+                    <ProjectCampaignsCard campaigns={project.campaigns}/>
                 </div>
             </div>
         </div>

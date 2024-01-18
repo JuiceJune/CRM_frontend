@@ -12,8 +12,6 @@ export default function UserProjectsTable(props) {
     const [selectedRow, setSelectedRow] = useState(null);
     const navigate = useNavigate();
 
-    console.log(projects)
-
     const onRowSelect = (event) => {
         navigate(`/projects/${event.data.id}`);
     };
@@ -37,7 +35,7 @@ export default function UserProjectsTable(props) {
     const projectPriceTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <span>${rowData.price} / {rowData.period}</span>
+                <span>${rowData.price}</span>
             </div>
         )
     };

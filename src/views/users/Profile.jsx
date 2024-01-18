@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {useStateContext} from "../../contexts/ContextProvider.jsx";
 import UserInfo from "../../components/user/userInfo.jsx";
 import UserForm from "../../components/user/userForm.jsx";
-import axiosClient from "../../axios-client.js";
+import axiosClient from "../../services/axios-client.js";
 
 
 const Profile = () => {

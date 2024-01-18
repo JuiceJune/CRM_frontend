@@ -21,16 +21,10 @@ export default function UserTable(props) {
         name: {value: null, matchMode: FilterMatchMode.STARTS_WITH},
         email: {value: null, matchMode: FilterMatchMode.STARTS_WITH},
         position: {value: null, matchMode: FilterMatchMode.EQUALS},
-        birthday: {value: null, matchMode: FilterMatchMode.EQUALS},
-        location: {value: null, matchMode: FilterMatchMode.EQUALS},
-        start_date: {value: null, matchMode: FilterMatchMode.EQUALS},
         created_at: {value: null, matchMode: FilterMatchMode.EQUALS},
     });
     const columns = [
         {field: 'email', header: 'Email'},
-        {field: 'birthday', header: 'Birthday'},
-        {field: 'location', header: 'Location'},
-        {field: 'start_date', header: 'Start Date'},
         {field: 'created_at', header: 'Created At'}
     ];
     const [visibleColumns, setVisibleColumns] = useState(columns);

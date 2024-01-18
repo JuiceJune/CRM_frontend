@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {Toast} from 'primereact/toast';
-import axiosClient from "../../axios-client.js";
+import axiosClient from "../../services/axios-client.js";
 import {BounceLoader} from "react-spinners";
 import UserTable from "../../components/user/userTable.jsx";
 

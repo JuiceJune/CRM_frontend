@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, useNavigate, Link} from "react-router-dom";
-import axiosClient from "../../axios-client.js";
+import axiosClient from "../../services/axios-client.js";
 import {useStateContext} from "../../contexts/ContextProvider.jsx";
 import {ArrowLeftCircle} from "react-bootstrap-icons";
-import {InputText} from "primereact/inputtext";
+import {InputText} from "primereact/inputText";
 import {Password} from "primereact/password";
 import {Button} from "primereact/button";
 

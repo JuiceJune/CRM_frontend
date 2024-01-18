@@ -1,7 +1,5 @@
 import React from 'react';
 import 'primeicons/primeicons.css';
-import {Badge} from 'primereact/badge';
-import {Password} from 'primereact/password';
 import {Button} from "primereact/button";
 
 const UserInfo = (props) => {
@@ -28,15 +26,6 @@ const UserInfo = (props) => {
             </div>
             <div className="flex border-bottom-1 border-300 pb-3 pt-1">
                 <div className="text-600 text-base">Position: {user.position}</div>
-            </div>
-            <div className="flex border-bottom-1 border-300 pb-3 pt-1">
-                <div className="text-600 text-base">Location: {user.location}</div>
-            </div>
-            <div className="flex border-bottom-1 border-300 pb-3 pt-1">
-                <div className="text-600 text-base">Birthday: {user.birthday}</div>
-            </div>
-            <div className="flex border-bottom-1 border-300 pb-3 pt-1">
-                <div className="text-600 text-base">Start working: {user.start_date}</div>
             </div>
         </div>
     );

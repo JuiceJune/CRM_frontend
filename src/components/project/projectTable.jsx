@@ -6,10 +6,11 @@ import {Button} from "primereact/button";
 import {MultiSelect} from "primereact/multiSelect";
 import {InputText} from "primereact/inputText";
 import {useNavigate} from "react-router-dom";
+import {useStateContext} from "../../contexts/ContextProvider.jsx";
 
 export default function ProjectTable(props) {
-    const {projects, loading, toast} = props
-
+    const {projects, loading} = props
+    const { showToast } = useStateContext();
     const [globalFilterValue, setGlobalFilterValue] = useState('');
     const [selectedRow, setSelectedRow] = useState(null);
     const navigate = useNavigate();
@@ -23,7 +24,6 @@ export default function ProjectTable(props) {
         research_manager: {value: null, matchMode: FilterMatchMode.EQUALS},
         it_specialist: {value: null, matchMode: FilterMatchMode.EQUALS},
         mailboxes: {value: null, matchMode: FilterMatchMode.EQUALS},
-        linkedin_accounts: {value: null, matchMode: FilterMatchMode.EQUALS},
         start_date: {value: null, matchMode: FilterMatchMode.EQUALS},
         price: {value: null, matchMode: FilterMatchMode.EQUALS},
     });
@@ -34,7 +34,6 @@ export default function ProjectTable(props) {
         { field: 'research_manager', header: 'Research Manager'},
         { field: 'it_specialist', header: 'IT Specialist'},
         { field: 'mailboxes', header: 'Mailboxes'},
-        { field: 'linkedin_accounts', header: 'Linkedin Accounts'},
         { field: 'start_date', header: 'Created At'},
         { field: 'price', header: 'Price'}
     ];
@@ -46,7 +45,7 @@ export default function ProjectTable(props) {
 
     const onCellCopy = (value) => {
         navigator.clipboard.writeText(value)
-        toast.current.show({ severity: 'success', summary: 'Value copied', detail: value , life: 3000 });
+        showToast('success', 'Value copied', value);
     };
 
     const onColumnToggle = (event) => {
@@ -58,13 +57,10 @@ export default function ProjectTable(props) {
 
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
-        let _filters = {...filters};
-
-        _filters['global'].value = value;
-
-        setFilters(_filters);
         setGlobalFilterValue(value);
+        setFilters({ ...filters, global: { value, matchMode: FilterMatchMode.CONTAINS } });
     };
+
 
 
     //Templates
@@ -94,9 +90,9 @@ export default function ProjectTable(props) {
         if(rowData.client) {
             return (
                 <div className="flex align-items-center gap-2">
-                    <img alt="Logo" src={`${rowData.client.logo}`} width="32" />
-                    <span>{rowData.client.company}</span>
-                    <Button icon="pi pi-copy" rounded text severity="secondary" onClick={() => onCellCopy(rowData.client.company)} />
+                    <img alt="Logo" src={`${rowData.client.avatar}`} width="32" />
+                    <span>{rowData.client.name}</span>
+                    <Button icon="pi pi-copy" rounded text severity="secondary" onClick={() => onCellCopy(rowData.client.name)} />
                 </div>
             );
         }
@@ -158,26 +154,10 @@ export default function ProjectTable(props) {
         );
     };
 
-    const linkedinAccountsTemplate = (rowData) => {
-        return (
-            <div>
-                {rowData.linkedin_accounts.map((linkedin, index) => {
-                    return (
-                        <div key={index} className="flex align-items-center gap-2">
-                            <img alt="Avatar" src={`${linkedin.avatar}`} width="32" />
-                            <span>{linkedin.name}</span>
-                            <Button icon="pi pi-copy" rounded text severity="secondary" onClick={() => onCellCopy(linkedin.name)} />
-                        </div>
-                    )
-                })}
-            </div>
-        );
-    };
-
     const projectPriceTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <span>${rowData.price} / {rowData.period}</span>
+                <span>${rowData.price}</span>
             </div>
         )
     };
@@ -205,7 +185,9 @@ export default function ProjectTable(props) {
                        style={{ width: '100%' }}
                        scrollable
                        dataKey="id"
-                       paginator rows={10} owsperpageoptions={[5, 10, 25, 50]}
+                       paginator
+                       rows={10}
+                       rowsPerPageOptions={[5, 10, 25, 50]}
                        header={header}
                        emptyMessage="No customers found."
                        selectionMode="single" selection={selectedRow}
@@ -223,8 +205,6 @@ export default function ProjectTable(props) {
                         return <Column key={index} body={itSpecialistTemplate} field={col.field} header={col.header} sortable/>
                     if( col.field === "mailboxes" )
                         return <Column key={index} body={mailboxesTemplate} field={col.field} header={col.header} sortable/>
-                    if( col.field === "linkedin_accounts" )
-                        return <Column key={index} body={linkedinAccountsTemplate} field={col.field} header={col.header} sortable/>
                     if( col.field === "price" )
                         return <Column key={index} body={projectPriceTemplate} field={col.field} header={col.header} sortable/>
                     return <Column key={index} field={col.field} header={col.header} sortable/>

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Outlet, Navigate, Link} from "react-router-dom";
 import {useStateContext} from "../contexts/ContextProvider.jsx";
-import axiosClient from "../axios-client.js";
+import axiosClient from "../services/axios-client.js";
 
 const DefaultLayout = () => {
 
@@ -38,7 +38,7 @@ const DefaultLayout = () => {
                 <Link to="/users">Users</Link>
                 <Link to="/projects">Projects</Link>
                 <Link to="/mailboxes">Mailboxes</Link>
-                <Link to="/linkedin-accounts">Linkedin Accounts</Link>
+                <Link to="/campaigns">Campaigns</Link>
             </aside>
             <div className="content">
                 <header>

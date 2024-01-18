@@ -1,67 +1,63 @@
-import React, {useEffect, useState, useRef} from 'react';
-import axiosClient from "../../axios-client.js";
-import {Link, useParams} from "react-router-dom";
-import {Button} from "primereact/button";
-import {BounceLoader} from "react-spinners";
-import {Toast} from 'primereact/toast'
-import 'primeicons/primeicons.css';
 import MailboxHeaderCards from "../../components/mailbox/mailboxHeaderCards";
-import MailboxChart from "../../components/mailbox/mailboxChart.jsx";
+import MailboxSignature from "../../components/mailbox/mailboxSignature.jsx";
 import MailboxInfoCard from "../../components/mailbox/mailboxInfoCard.jsx";
+import MailboxHeader from "../../components/mailbox/mailboxHeader.jsx";
+import MailboxChart from "../../components/mailbox/mailboxChart.jsx";
+import axiosClient from "../../services/axios-client.js";
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import MailboxTable from "../../components/mailbox/mailboxTable.jsx";
-
+import {BounceLoader} from "react-spinners";
+import {useParams} from "react-router-dom";
+import 'primeicons/primeicons.css';
+import {useStateContext} from "../../contexts/ContextProvider.jsx";
+import handleAxiosError from "../../services/AxiosErrorHandler.js";
 
 const Mailbox = () => {
-    const {id} = useParams()
-    const [mailbox, setMailbox] = useState([]);
+    const { showToast } = useStateContext();
     const [loading, setLoading] = useState(false)
-    const toast = useRef(null);
+    const [mailbox, setMailbox] = useState([]);
     const navigate = useNavigate();
+    const {id} = useParams()
 
     useEffect(() => {
+        setLoading(true);
+        checkQueryParams();
         getMailbox();
-        setLoading(false);
     }, [id]);
 
-    useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
+    const checkQueryParams = () => {
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
 
-        if (urlParams.size > 0) {
-            const status = urlParams.get('status');
-            const message = urlParams.get('message');
-            const email = urlParams.get('email');
+            if (urlParams.size > 0) {
+                const status = urlParams.get('status');
+                const message = urlParams.get('message');
+                const email = urlParams.get('email');
 
-            toast.current.show({ severity: status, summary: message, detail: email, life: 3000 });
+                showToast(status, message, email);
 
-            const url = new URL(window.location.href);
-            url.search = ''; // Очищаємо всі параметри
-            window.history.replaceState(null, '', url.toString());
+                const url = new URL(window.location.href);
+                url.search = ''; // Очищаємо всі параметри
+                window.history.replaceState(null, '', url.toString());
+            }
+        } catch (error) {
+            handleAxiosError(error, showToast);
         }
-    }, []);
-
-
-    const getMailbox = () => {
-        setLoading(true);
-        axiosClient.get(`/mailboxes/${id}`)
-            .then(response => {
-                setMailbox(response.data.data)
-            })
-            .catch((e) => {
-                if(e.response.status === 403 || e.response.status === 404) {
-                    // toast.current.show({ severity: 'error', summary: 'Error', detail: 'Not Found', life: 3000 });
-                    navigate('/not-found');
-                }
-            })
-            .finally(() => {
-                setLoading(false); // Встановлюємо loading в false незалежно від результату запиту.
-            });
     }
 
-    if (loading) {
-        return <BounceLoader color="#5B08A7" loading={loading} size={100} aria-label="Loading Spinner"
-                             data-testid="loader"/>;
+    const getMailbox = async () => {
+        try {
+            setLoading(true);
+            const response = await axiosClient.get(`/mailboxes/${id}`);
+            console.log(response);
+            setMailbox(response.data);
+        } catch (error) {
+            handleAxiosError(error, showToast);
+        } finally {
+            setLoading(false);
+        }
     }
+
 
     return (
         <div>
@@ -75,20 +71,12 @@ const Mailbox = () => {
                 />
             ) : (
                 <div>
-                    <Toast ref={toast}/>
-                    <div className="surface-0 shadow-1 p-3 border-1 border-50 border-round mb-3">
-                        <div className="flex justify-content-between align-items-center ">
-                            <div className="flex align-items-center">
-                                <Button icon="pi pi-arrow-left" onClick={() => navigate(-1)} className="mr-2" rounded outlined
-                                        aria-label="Filter"/>
-                                <h1>{mailbox.email}</h1>
-                            </div>
-                        </div>
-                    </div>
+                    <MailboxHeader mailbox={mailbox} navigate={navigate} setLoading={setLoading} id={id}/>
                     <MailboxHeaderCards/>
+                    <MailboxSignature mailbox={mailbox} setMailbox={setMailbox} setLoading={setLoading} id={id}/>
                     <div className="grid mt-1">
                         <div className="col-12 lg:col-5">
-                            <MailboxInfoCard mailbox={mailbox} toast={toast}/>
+                            <MailboxInfoCard mailbox={mailbox}/>
                         </div>
                         <div className="col-12 lg:col-7">
                             <MailboxChart/>

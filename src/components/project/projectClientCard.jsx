@@ -13,11 +13,11 @@ const ProjectClientCard = (props) => {
                 </div>
                 <div className="flex pt-1">
                     <div className="flex">
-                        <Avatar image={'../' + project.client.logo} size="large" shape="circle" />
+                        <Avatar image={'../' + project.logo} size="large" shape="circle" />
                     </div>
                     <div className="pl-2 my-auto hidden-overflow z-5">
-                        <div className="text-500">{project.client.company}</div>
-                        <div className="text-600 text-base">{project.client.name}</div>
+                        <div className="text-500">{project.client.name}</div>
+                        <div className="text-600 text-base">{project.client.email}</div>
                     </div>
                 </div>
             </div>

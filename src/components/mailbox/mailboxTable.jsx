@@ -6,11 +6,12 @@ import {Button} from "primereact/button";
 import {MultiSelect} from "primereact/multiSelect";
 import {InputText} from "primereact/inputText";
 import {useNavigate} from "react-router-dom";
+import {useStateContext} from "../../contexts/ContextProvider.jsx";
 
 
 export default function MailboxTable(props) {
-    const {mailboxes, loading, toast} = props
-
+    const {mailboxes, loading} = props
+    const { showToast } = useStateContext();
     const [globalFilterValue, setGlobalFilterValue] = useState('');
     const [selectedRow, setSelectedRow] = useState(null);
     const navigate = useNavigate();
@@ -25,7 +26,6 @@ export default function MailboxTable(props) {
         app_password: {value: null, matchMode: FilterMatchMode.EQUALS},
         email_provider: {value: null, matchMode: FilterMatchMode.EQUALS},
         created_at: {value: null, matchMode: FilterMatchMode.EQUALS},
-        for_linkedin: {value: null, matchMode: FilterMatchMode.EQUALS},
     });
 
     const columns = [
@@ -33,7 +33,6 @@ export default function MailboxTable(props) {
         { field: 'app_password', header: 'App Password'},
         { field: 'phone', header: 'Phone'},
         { field: 'domain', header: 'Domain'},
-        { field: 'for_linkedin', header: 'For Linkedin'},
         { field: 'created_at', header: 'Created At'}
     ];
     const [visibleColumns, setVisibleColumns] = useState(columns);
@@ -44,25 +43,21 @@ export default function MailboxTable(props) {
 
     const onCellCopy = (value) => {
         navigator.clipboard.writeText(value)
-        toast.current.show({ severity: 'success', summary: 'Value copied', detail: value , life: 3000 });
+        showToast('success', 'Value copied', value);
     };
 
     const onColumnToggle = (event) => {
         let selectedColumns = event.value;
         let orderedSelectedColumns = columns.filter((col) => selectedColumns.some((sCol) => sCol.field === col.field));
-
         setVisibleColumns(orderedSelectedColumns);
     };
 
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
-        let _filters = {...filters};
-
-        _filters['global'].value = value;
-
-        setFilters(_filters);
         setGlobalFilterValue(value);
+        setFilters({ ...filters, global: { value, matchMode: FilterMatchMode.CONTAINS } });
     };
+
 
 
     //Templates
@@ -72,16 +67,6 @@ export default function MailboxTable(props) {
                 <img alt="Avatar" src={`${rowData.avatar}`} width="32" />
                 <span>{rowData.name}</span>
                 <Button icon="pi pi-copy" rounded text severity="secondary" onClick={() => onCellCopy(rowData.name)} />
-            </div>
-        );
-    };
-
-    const providerEmailTemplate = (rowData) => {
-        return (
-            <div className="flex align-items-center gap-2">
-                <img alt="Provider-logo" src={`${rowData.email_provider.logo}`} width="32" />
-                <span>{rowData.email}</span>
-                <Button icon="pi pi-copy" rounded text severity="secondary" onClick={() => onCellCopy(rowData.email)} />
             </div>
         );
     };
@@ -129,17 +114,6 @@ export default function MailboxTable(props) {
         );
     };
 
-    const forLinkedinTemplate = (rowData) => {
-        return (
-            <div className="flex align-items-center gap-2">
-                {rowData.for_linkedin ? (
-                    <i className="pi pi-check" style={{ color: 'green', fontSize: '1rem' }}></i>
-                ) : (
-                    <i className="pi pi-times" style={{ color: 'red', fontSize: '1rem' }}></i>
-                )}
-            </div>
-        );
-    };
     //Templates
 
     const header = () => {
@@ -164,16 +138,15 @@ export default function MailboxTable(props) {
                        style={{ width: '100%' }}
                        scrollable
                        dataKey="id"
-                       paginator rows={10} owsperpageoptions={[5, 10, 25, 50]}
+                       paginator rows={10}
+                       rowsPerPageOptions={[5, 10, 25, 50]}
                        header={header}
                        emptyMessage="No customers found."
                        selectionMode="single" selection={selectedRow}
                        onRowSelect={onRowSelect} metaKeySelection={false}>
                 <Column field="name" header="Name" body={nameAvatarTemplate} sortable></Column>
-                <Column field="email" header="Email" body={providerEmailTemplate} sortable></Column>
+                <Column field="email" header="Email" sortable></Column>
                 {visibleColumns.map((col, index) => {
-                    if (col.field === "for_linkedin")
-                        return <Column key={index} body={forLinkedinTemplate} field={col.field} header={col.header} sortable/>
                     if (col.field === "password")
                         return <Column key={index} body={passwordTemplate} field={col.field} header={col.header} sortable/>
                     if (col.field === "app_password")

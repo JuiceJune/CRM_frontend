@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-import axiosClient from "../../axios-client.js";
+import axiosClient from "../../services/axios-client.js";
 import {BounceLoader} from "react-spinners";
 import { Toast } from 'primereact/toast'
 import 'primeicons/primeicons.css';

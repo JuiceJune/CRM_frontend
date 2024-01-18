@@ -1,4 +1,5 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useRef, useState} from "react";
+import {Toast} from "primereact/toast";
 
 const StateContext = createContext({
     user: null,
@@ -7,7 +8,8 @@ const StateContext = createContext({
     notification: null,
     setUser: () => {},
     setToken: () => {},
-    setNotification: () => {}
+    setNotification: () => {},
+    showToast: () => {},
 })
 
 
@@ -16,6 +18,7 @@ export const ContextProvider = ({children}) => {
     const [user, setUser] = useState({});
     const [notification, _setNotification] = useState('');
     const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
+    const toastRef = useRef(null);
 
     const setNotification = (message) => {
         _setNotification(message);
@@ -33,6 +36,10 @@ export const ContextProvider = ({children}) => {
         }
     }
 
+    const showToast = (severity, summary, detail, life = 3000) => {
+        toastRef.current.show({ severity, summary, detail, life });
+    };
+
     return (
         <StateContext.Provider value={{
             user,
@@ -40,9 +47,11 @@ export const ContextProvider = ({children}) => {
             setUser,
             setToken,
             notification,
-            setNotification
+            setNotification,
+            showToast
         }}>
             {children}
+            <Toast ref={toastRef} />
         </StateContext.Provider>
     )
 }

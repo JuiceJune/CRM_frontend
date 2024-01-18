@@ -1,5 +1,5 @@
 import React, { useRef, useState} from 'react';
-import axiosClient from "../../axios-client.js";
+import axiosClient from "../../services/axios-client.js";
 import {useStateContext} from "../../contexts/ContextProvider.jsx";
 import {BounceLoader} from "react-spinners";
 
