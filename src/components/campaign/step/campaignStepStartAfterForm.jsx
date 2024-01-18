@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Dropdown } from 'primereact/dropdown';
-import { InputNumber } from 'primereact/inputnumber';
+import {InputNumber} from "primereact/inputNumber";
 
 const CampaignStepStartAfterForm = (props) => {
     const {startAfter, setCampaign, stepIndex, handleStepInputChange} = props;

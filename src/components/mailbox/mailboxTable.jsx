@@ -3,8 +3,8 @@ import {Column} from "primereact/column";
 import {DataTable} from "primereact/datatable";
 import {FilterMatchMode} from "primereact/api";
 import {Button} from "primereact/button";
-import {MultiSelect} from "/primereact/multiSelect";
-import {InputText} from "/primereact/inputText";
+import {MultiSelect} from "primereact/multiSelect";
+import {InputText} from "primereact/inputText";
 import {useNavigate} from "react-router-dom";
 import {useStateContext} from "../../contexts/ContextProvider.jsx";
 

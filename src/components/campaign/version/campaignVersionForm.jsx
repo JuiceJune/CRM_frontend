@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Button} from "primereact/button";
-import {InputText} from "/primereact/inputText";
+import {InputText} from "primereact/inputText";
 import {useStateContext} from "../../../contexts/ContextProvider.jsx";
 import {Editor} from "primereact/editor";
 

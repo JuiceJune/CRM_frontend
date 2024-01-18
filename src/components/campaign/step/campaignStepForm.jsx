@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Button} from "primereact/button";
-import {InputNumber} from "/primereact/inputNumber";
+import {InputNumber} from "primereact/inputNumber";
 import CampaignSendTimePicker from "../campaignSendTimePicker.jsx";
 import CampaignVersions from "../version/campaignVersions.jsx";
 import { Divider } from 'primereact/divider';

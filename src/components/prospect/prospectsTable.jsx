@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Column} from "primereact/column";
 import {DataTable} from "primereact/datatable";
 import {FilterMatchMode} from "primereact/api";
-import {InputText} from "/primereact/inputText";
+import {InputText} from "primereact/inputText";
 import {useNavigate, useParams} from "react-router-dom";
 import {Button} from "primereact/button";
 import axiosClient from "../../services/axios-client.js";

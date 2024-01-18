@@ -1,6 +1,6 @@
 import React from 'react';
 import 'primeicons/primeicons.css';
-import {InputText} from "/primereact/inputText";
+import {InputText} from "primereact/inputText";
 import {Editor} from "primereact/editor";
 
 const CampaignMessageInfo = (props) => {

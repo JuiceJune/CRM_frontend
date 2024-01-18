@@ -3,7 +3,7 @@ import {Column} from "primereact/column";
 import {DataTable} from "primereact/datatable";
 import {FilterMatchMode} from "primereact/api";
 import {Button} from "primereact/button";
-import {InputText} from "/primereact/inputText";
+import {InputText} from "primereact/inputText";
 import {useNavigate} from "react-router-dom";
 
 
